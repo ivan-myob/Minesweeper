@@ -50,6 +50,25 @@ namespace Minesweeper
         }
         
         [Fact]
+        public void Return_OutputOfJustStars4BY4()
+        {
+            var minesweeper = new Minesweeper();
+            var boardLayout = "44\n*...\n....\n.*..\n....";
+            var finalOutput = minesweeper.FinalOutput(boardLayout);
+            Assert.Equal("*........*......", finalOutput);
+        }
+        
+        [Fact]
+        public void Return_OutputOfJustStars3BY5()
+        {
+            var minesweeper = new Minesweeper();
+            var boardLayout = "35\n**...\n.....\n.*...";
+            var finalOutput = minesweeper.FinalOutput(boardLayout);
+            Assert.Equal("**.........*...", finalOutput);
+        }
+        
+        
+/*        [Fact]
         public void Return_FinalOutputIsCorrect4BY4()
         {
             var minesweeper = new Minesweeper();
@@ -65,6 +84,6 @@ namespace Minesweeper
             var boardLayout = "35\n**...\n.....\n.*...";
             var finalOutput = minesweeper.FinalOutput(boardLayout);
             Assert.Equal("**100\n33200\n1*100", finalOutput);
-        }
+        }*/
     }
 }
