@@ -12,22 +12,40 @@ namespace Minesweeper
         {
             _testOutputHelper = testOutputHelper;
         }
-        
+
         [Fact]
-        public void Return_CanStartGame()
+        public void Return_IsRowSizeGreaterThan0()
         {
             var minesweeper = new Minesweeper();
             var boardLayout = "44\n*...\n....\n.*..\n....";
-            var canStartGame = minesweeper.CanIStartTheGame(boardLayout);
-            Assert.True(canStartGame);
+            var result = minesweeper.LengthOfRow(boardLayout);
+            Assert.Equal(4, result);
         }
         
         [Fact]
-        public void ReturnException_FieldSizeTooSmall()
+        public void Return_IsColumnSizeGreaterThan0()
+        {
+            var minesweeper = new Minesweeper();
+            var boardLayout = "44\n*...\n....\n.*..\n....";
+            var result = minesweeper.LengthOfColumn(boardLayout);
+            Assert.Equal(4, result);
+        }
+        
+        [Fact]
+        public void ReturnException_RowSizeTooSmall()
         {
             var minesweeper = new Minesweeper();
             var boardLayout = "00";
-            var exception = Assert.Throws<Exception>(() => minesweeper.CanIStartTheGame(boardLayout));
+            var exception = Assert.Throws<Exception>(() => minesweeper.LengthOfRow(boardLayout));
+            Assert.Equal("Please enter a larger field size", exception.Message);
+        }
+        
+        [Fact]
+        public void ReturnException_ColumnSizeTooSmall()
+        {
+            var minesweeper = new Minesweeper();
+            var boardLayout = "00";
+            var exception = Assert.Throws<Exception>(() => minesweeper.LengthOfColumn(boardLayout));
             Assert.Equal("Please enter a larger field size", exception.Message);
         }
     }

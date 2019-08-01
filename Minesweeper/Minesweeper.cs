@@ -6,27 +6,36 @@ namespace Minesweeper
     {
         public void FinalOutput(string boardLayout)
         {
-            int boardSizeColumn = 1;
-            int boardSizeRow = 1;
-            bool result = CanIStartTheGame(boardLayout);
+            var boardSizeRow = LengthOfRow(boardLayout);
+            var boardSizeColumn = LengthOfColumn(boardLayout);
         }
         
-        public bool CanIStartTheGame(string boardLayout)
+        public int LengthOfRow(string boardLayout)
         {
-            var boardSizeRow = 0;
-            var boardSizeColumn = 0;
-
+            var boardSizeRow = "";
             if (boardLayout.Length > 2)
             {
-                boardSizeRow = boardLayout[0];
-                boardSizeColumn = boardLayout[1];
+                boardSizeRow = boardLayout.Substring(0,1);
             }
-            
-            if (boardSizeRow > 0 && boardSizeColumn > 0)
+            else
             {
-                return true;
+                throw new Exception($"Please enter a larger field size");
             }
-            throw new Exception($"Please enter a larger field size");
+            return Int32.Parse(boardSizeRow);
+        }
+        
+        public int LengthOfColumn(string boardLayout)
+        {
+            var boardSizeColumn = "";
+            if (boardLayout.Length > 2)
+            {
+                boardSizeColumn = boardLayout.Substring(0,1);
+            }
+            else
+            {
+                throw new Exception($"Please enter a larger field size");
+            }
+            return Int32.Parse(boardSizeColumn);
         }
     }
 }
