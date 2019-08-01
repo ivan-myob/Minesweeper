@@ -10,14 +10,18 @@ namespace Minesweeper
             var boardSizeRow = LengthOfRow(inputOfBoardLayout);
             var boardSizeColumn = LengthOfColumn(inputOfBoardLayout);
             var finalOutput = "";
-            foreach (var cells in FillTheCellsWithValues(inputOfBoardLayout, boardSizeRow, boardSizeColumn))
+            var needsNumbersBoard = FillTheCellsWithBasicValues(inputOfBoardLayout, boardSizeRow, boardSizeColumn);
+            var boardWithNumbers = FillTheCellsWithNumbers(needsNumbersBoard, boardSizeRow, boardSizeColumn);
+
+
+            foreach (var cells in boardWithNumbers)
             {
-              finalOutput += cells;   
+                finalOutput += cells;
             }
 
             return finalOutput;
         }
-        
+
         public int LengthOfRow(string boardLayout)
         {
             var boardSizeRow = "";
@@ -29,9 +33,10 @@ namespace Minesweeper
             {
                 throw new Exception($"Please enter a larger field size");
             }
+
             return Int32.Parse(boardSizeRow);
         }
-        
+
         public int LengthOfColumn(string boardLayout)
         {
             var boardSizeColumn = "";
@@ -43,31 +48,73 @@ namespace Minesweeper
             {
                 throw new Exception($"Please enter a larger field size");
             }
+
             return Int32.Parse(boardSizeColumn);
         }
 
-        public string[,] FillTheCellsWithValues(string inputOfBoardLayout, int boardSizeRow, int boardSizeColumn)
+        public string[,] FillTheCellsWithBasicValues(string inputOfBoardLayout, int boardSizeRow, int boardSizeColumn)
         {
             // If cell is != * fill cell with 0
             // For each cell, if cell is == *, nehibour += 1
-            
+
             var boardTable = new string[boardSizeRow, boardSizeColumn];
             var count = 2;
-            
+
             for (int i = 0; i < boardSizeRow; i++)
             {
                 for (int j = 0; j < boardSizeColumn; j++)
                 {
-                    boardTable[i, j] = inputOfBoardLayout[count].ToString();
+                    if (inputOfBoardLayout[count].ToString() == "*")
+                    {
+                        boardTable[i, j] = inputOfBoardLayout[count].ToString();
+                    }
+                    else
+                    {
+                        boardTable[i, j] = "0";
+                    }
+
                     count = count + 1;
                 }
             }
 
             return boardTable;
+        }
 
-            //var nearbyPanels = Panels.Where(panel => panel.X >= (x - depth) && panel.X <= (x + depth)
-            //&& panel.Y >= (y - depth) && panel.Y <= (y + depth));
-            //var currentPanel = Panels.Where(panel => panel.X == x && panel.Y == y);
+        public string[,] FillTheCellsWithNumbers(string[,] needsNumbersBoard, int boardSizeRow, int boardSizeColumn)
+        {
+            for (int i = 0; i < boardSizeRow; i++)
+            {
+                for (int j = 0; j < boardSizeColumn; j++)
+                {
+                    if (needsNumbersBoard[i, j] == "*")
+                    {
+                        FindOpenSpace(needsNumbersBoard, boardSizeRow, boardSizeColumn, i, j);
+                    }
+                }
+            }
+
+            return needsNumbersBoard;
+        }
+
+        public string[,] FindOpenSpace(string[,] needsNumbersBoard, int boardSizeRow, int boardSizeColumn, int i, int j)
+        {
+            for (int y = -1; y <= 1; y++)
+            {
+                for (int x = -1; x < 1; x++)
+                {
+                    if ((i + x >= 0 && j + y >= 0))
+                    {
+                        if (i + x <= boardSizeRow && j + y <= boardSizeColumn)
+                        {
+                            if ((needsNumbersBoard[(i + x), (j + y)]) == "0")
+                            {
+                                needsNumbersBoard[(i + x), (j + y)] = "1";
+                            }
+                        }
+                    }
+                }
+            }
+            return needsNumbersBoard;
         }
     }
 }

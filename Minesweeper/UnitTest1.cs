@@ -55,7 +55,7 @@ namespace Minesweeper
             var minesweeper = new Minesweeper();
             var boardLayout = "44\n*...\n....\n.*..\n....";
             var finalOutput = minesweeper.FinalOutput(boardLayout);
-            Assert.Equal("*........*......", finalOutput);
+            Assert.Equal("*10011101*101110", finalOutput);
         }
         
         [Fact]
@@ -64,7 +64,7 @@ namespace Minesweeper
             var minesweeper = new Minesweeper();
             var boardLayout = "35\n**...\n.....\n.*...";
             var finalOutput = minesweeper.FinalOutput(boardLayout);
-            Assert.Equal("**.........*...", finalOutput);
+            Assert.Equal("**100111001*100", finalOutput);
         }
         
         
