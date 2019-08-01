@@ -4,10 +4,21 @@ namespace Minesweeper
 {
     public class Minesweeper
     {
-        public void FinalOutput(string boardLayout)
+        public string FinalOutput(string boardLayout)
         {
             var boardSizeRow = LengthOfRow(boardLayout);
             var boardSizeColumn = LengthOfColumn(boardLayout);
+            var finalOutput = "";
+
+            for (int i = 0; i < boardSizeRow; i++)
+            {
+                for (int j = 0; j < boardSizeColumn; j++)
+                {
+                    
+                }
+            }
+
+            return finalOutput;
         }
         
         public int LengthOfRow(string boardLayout)
@@ -15,7 +26,7 @@ namespace Minesweeper
             var boardSizeRow = "";
             if (boardLayout.Length > 2)
             {
-                boardSizeRow = boardLayout.Substring(0,1);
+                boardSizeRow = boardSizeRow + boardLayout[0];
             }
             else
             {
@@ -29,7 +40,7 @@ namespace Minesweeper
             var boardSizeColumn = "";
             if (boardLayout.Length > 2)
             {
-                boardSizeColumn = boardLayout.Substring(0,1);
+                boardSizeColumn = boardSizeColumn + boardLayout[1];
             }
             else
             {

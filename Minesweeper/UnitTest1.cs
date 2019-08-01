@@ -48,5 +48,23 @@ namespace Minesweeper
             var exception = Assert.Throws<Exception>(() => minesweeper.LengthOfColumn(boardLayout));
             Assert.Equal("Please enter a larger field size", exception.Message);
         }
+        
+        [Fact]
+        public void Return_FinalOutputIsCorrect4BY4()
+        {
+            var minesweeper = new Minesweeper();
+            var boardLayout = "44\n*...\n....\n.*..\n....";
+            var finalOutput = minesweeper.FinalOutput(boardLayout);
+            Assert.Equal("*100\n2210\n1*10\n1110", finalOutput);
+        }
+        
+        [Fact]
+        public void Return_FinalOutputIsCorrect3BY5()
+        {
+            var minesweeper = new Minesweeper();
+            var boardLayout = "35\n**...\n.....\n.*...";
+            var finalOutput = minesweeper.FinalOutput(boardLayout);
+            Assert.Equal("**100\n33200\n1*100", finalOutput);
+        }
     }
 }
