@@ -104,6 +104,18 @@ namespace Minesweeper
                 {
                     if ((i + x >= 0 && j + y >= 0 && i + x < boardSizeRow && j + y < boardSizeColumn))
                     {
+                        if ((needsNumbersBoard[(i + x), (j + y)]) == "3")
+                        {
+                            needsNumbersBoard[(i + x), (j + y)] = "4";
+                        }
+                        if ((needsNumbersBoard[(i + x), (j + y)]) == "2")
+                        {
+                            needsNumbersBoard[(i + x), (j + y)] = "3";
+                        }
+                        if ((needsNumbersBoard[(i + x), (j + y)]) == "1")
+                        {
+                            needsNumbersBoard[(i + x), (j + y)] = "2";
+                        }
                         if ((needsNumbersBoard[(i + x), (j + y)]) == "0")
                         {
                             needsNumbersBoard[(i + x), (j + y)] = "1";

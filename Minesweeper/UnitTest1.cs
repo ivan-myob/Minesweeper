@@ -49,8 +49,8 @@ namespace Minesweeper
             Assert.Equal("Please enter a larger field size", exception.Message);
         }
         
-        [Fact]
-        public void Return_OutputOfJustStars4BY4()
+/*        [Fact]
+        public void Return_OutputOfJustSingleNumber4BY4()
         {
             var minesweeper = new Minesweeper();
             var boardLayout = "44\n*...\n....\n.*..\n....";
@@ -59,22 +59,22 @@ namespace Minesweeper
         }
         
         [Fact]
-        public void Return_OutputOfJustStars3BY5()
+        public void Return_OutputOfJustSingleNumber3BY5()
         {
             var minesweeper = new Minesweeper();
             var boardLayout = "35\n**...\n.....\n.*...";
             var finalOutput = minesweeper.FinalOutput(boardLayout);
             Assert.Equal("**100111001*100", finalOutput);
-        }
+        }*/
         
         
-/*        [Fact]
+        [Fact]
         public void Return_FinalOutputIsCorrect4BY4()
         {
             var minesweeper = new Minesweeper();
             var boardLayout = "44\n*...\n....\n.*..\n....";
             var finalOutput = minesweeper.FinalOutput(boardLayout);
-            Assert.Equal("*100\n2210\n1*10\n1110", finalOutput);
+            Assert.Equal("*10022101*101110", finalOutput);
         }
         
         [Fact]
@@ -83,7 +83,7 @@ namespace Minesweeper
             var minesweeper = new Minesweeper();
             var boardLayout = "35\n**...\n.....\n.*...";
             var finalOutput = minesweeper.FinalOutput(boardLayout);
-            Assert.Equal("**100\n33200\n1*100", finalOutput);
-        }*/
+            Assert.Equal("**100332001*100", finalOutput);
+        }
     }
 }
