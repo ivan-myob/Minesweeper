@@ -14,7 +14,7 @@ namespace Minesweeper
             {
                 for (int j = 0; j < boardSizeColumn; j++)
                 {
-                    
+                    return finalOutput;
                 }
             }
 
