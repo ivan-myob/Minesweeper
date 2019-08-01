@@ -98,18 +98,15 @@ namespace Minesweeper
 
         public string[,] FindOpenSpace(string[,] needsNumbersBoard, int boardSizeRow, int boardSizeColumn, int i, int j)
         {
-            for (int y = -1; y <= 1; y++)
+            for (int x = -1; x <= 1; x++)
             {
-                for (int x = -1; x < 1; x++)
+                for (int y = -1; y <= 1; y++)
                 {
-                    if ((i + x >= 0 && j + y >= 0))
+                    if ((i + x >= 0 && j + y >= 0 && i + x < boardSizeRow && j + y < boardSizeColumn))
                     {
-                        if (i + x <= boardSizeRow && j + y <= boardSizeColumn)
+                        if ((needsNumbersBoard[(i + x), (j + y)]) == "0")
                         {
-                            if ((needsNumbersBoard[(i + x), (j + y)]) == "0")
-                            {
-                                needsNumbersBoard[(i + x), (j + y)] = "1";
-                            }
+                            needsNumbersBoard[(i + x), (j + y)] = "1";
                         }
                     }
                 }
