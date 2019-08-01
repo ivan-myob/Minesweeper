@@ -13,14 +13,22 @@ namespace Minesweeper
             _testOutputHelper = testOutputHelper;
         }
         
-/*        [Fact]
-        public void Return_CanAddTheory()
+        [Fact]
+        public void Return_CanStartGame()
         {
-            var Minesweeper = new Minesweeper();
-
-            var result = Minesweeper.Add(value1);
-
-            Assert.Equal(value2, result);
-        }*/
+            var minesweeper = new Minesweeper();
+            var boardLayout = "44\n*...\n....\n.*..\n....";
+            var canStartGame = minesweeper.CanIStartTheGame(boardLayout);
+            Assert.True(canStartGame);
+        }
+        
+        [Fact]
+        public void ReturnException_FieldSizeTooSmall()
+        {
+            var minesweeper = new Minesweeper();
+            var boardLayout = "00";
+            var exception = Assert.Throws<Exception>(() => minesweeper.CanIStartTheGame(boardLayout));
+            Assert.Equal("Please enter a larger field size", exception.Message);
+        }
     }
 }
