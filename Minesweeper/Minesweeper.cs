@@ -6,13 +6,12 @@ namespace Minesweeper
     {
         public string FinalOutput(string boardLayout)
         {
-            var inputOfBoardLayout = boardLayout.Replace("\n", "");
-            var boardSizeRow = LengthOfRow(inputOfBoardLayout);
-            var boardSizeColumn = LengthOfColumn(inputOfBoardLayout);
+            var dataFromBoardLayout = StringConversionThatIsRequired(boardLayout);
+            var boardSizeRow = LengthOfRow(dataFromBoardLayout);
+            var boardSizeColumn = LengthOfColumn(dataFromBoardLayout);
             var finalOutput = "";
-            var needsNumbersBoard = FillTheCellsWithBasicValues(inputOfBoardLayout, boardSizeRow, boardSizeColumn);
+            var needsNumbersBoard = FillTheCellsWithBoardLayout(dataFromBoardLayout, boardSizeRow, boardSizeColumn);
             var boardWithNumbers = FillTheCellsWithNumbers(needsNumbersBoard, boardSizeRow, boardSizeColumn);
-
 
             foreach (var cells in boardWithNumbers)
             {
@@ -20,6 +19,13 @@ namespace Minesweeper
             }
 
             return finalOutput;
+        }
+
+        public string StringConversionThatIsRequired(string boardLayout)
+        {
+            boardLayout = boardLayout.Replace("\n", "");
+            boardLayout = boardLayout.Replace(".", "0");
+            return boardLayout;
         }
 
         public int LengthOfRow(string boardLayout)
@@ -52,11 +58,8 @@ namespace Minesweeper
             return Int32.Parse(boardSizeColumn);
         }
 
-        public string[,] FillTheCellsWithBasicValues(string inputOfBoardLayout, int boardSizeRow, int boardSizeColumn)
+        public string[,] FillTheCellsWithBoardLayout(string inputOfBoardLayout, int boardSizeRow, int boardSizeColumn)
         {
-            // If cell is != * fill cell with 0
-            // For each cell, if cell is == *, nehibour += 1
-
             var boardTable = new string[boardSizeRow, boardSizeColumn];
             var count = 2;
 
@@ -64,19 +67,9 @@ namespace Minesweeper
             {
                 for (int j = 0; j < boardSizeColumn; j++)
                 {
-                    if (inputOfBoardLayout[count].ToString() == "*")
-                    {
-                        boardTable[i, j] = inputOfBoardLayout[count].ToString();
-                    }
-                    else
-                    {
-                        boardTable[i, j] = "0";
-                    }
-
-                    count = count + 1;
+                    boardTable[i, j] = inputOfBoardLayout[count++].ToString();
                 }
             }
-
             return boardTable;
         }
 
@@ -92,7 +85,6 @@ namespace Minesweeper
                     }
                 }
             }
-
             return needsNumbersBoard;
         }
 
