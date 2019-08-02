@@ -4,12 +4,13 @@ namespace Minesweeper
 {
     public class Minesweeper
     {
-        public string FinalOutput(string boardLayout)
+        public static string FinalOutput(string boardLayout)
         {
-            var dataFromBoardLayout = StringConversionThatIsRequired(boardLayout);
-            var boardSizeRow = LengthOfRow(dataFromBoardLayout);
-            var boardSizeColumn = LengthOfColumn(dataFromBoardLayout);
             var finalOutput = "";
+            StringLengthIsLongEnough(boardLayout);
+            var dataFromBoardLayout = StringConversionThatIsRequired(boardLayout);
+            var boardSizeRow = CalculationOfBoardSide(dataFromBoardLayout, 0);
+            var boardSizeColumn = CalculationOfBoardSide(dataFromBoardLayout, 1);
             var needsNumbersBoard = FillTheCellsWithBoardLayout(dataFromBoardLayout, boardSizeRow, boardSizeColumn);
             var boardWithNumbers = FillTheCellsWithNumbers(needsNumbersBoard, boardSizeRow, boardSizeColumn);
 
@@ -21,44 +22,29 @@ namespace Minesweeper
             return finalOutput;
         }
 
-        public string StringConversionThatIsRequired(string boardLayout)
+        private static void StringLengthIsLongEnough(string boardLayout)
+        {
+            if (boardLayout.Length <= 3)
+            {
+                throw new Exception($"Please enter a larger field size");
+            }
+        }
+        
+        private static string StringConversionThatIsRequired(string boardLayout)
         {
             boardLayout = boardLayout.Replace("\n", "");
             boardLayout = boardLayout.Replace(".", "0");
             return boardLayout;
         }
 
-        public int LengthOfRow(string boardLayout)
+        public static int CalculationOfBoardSide(string boardLayout, int rowOrColumn)
         {
-            var boardSizeRow = "";
-            if (boardLayout.Length > 2)
-            {
-                boardSizeRow = boardSizeRow + boardLayout[0];
-            }
-            else
-            {
-                throw new Exception($"Please enter a larger field size");
-            }
-
-            return Int32.Parse(boardSizeRow);
+            var boardSideLength = "";
+            boardSideLength = boardSideLength + boardLayout[rowOrColumn];
+            return Int32.Parse(boardSideLength);
         }
-
-        public int LengthOfColumn(string boardLayout)
-        {
-            var boardSizeColumn = "";
-            if (boardLayout.Length > 2)
-            {
-                boardSizeColumn = boardSizeColumn + boardLayout[1];
-            }
-            else
-            {
-                throw new Exception($"Please enter a larger field size");
-            }
-
-            return Int32.Parse(boardSizeColumn);
-        }
-
-        public string[,] FillTheCellsWithBoardLayout(string inputOfBoardLayout, int boardSizeRow, int boardSizeColumn)
+        
+        private static string[,] FillTheCellsWithBoardLayout(string inputOfBoardLayout, int boardSizeRow, int boardSizeColumn)
         {
             var boardTable = new string[boardSizeRow, boardSizeColumn];
             var count = 2;
@@ -73,7 +59,7 @@ namespace Minesweeper
             return boardTable;
         }
 
-        public string[,] FillTheCellsWithNumbers(string[,] needsNumbersBoard, int boardSizeRow, int boardSizeColumn)
+        private static string[,] FillTheCellsWithNumbers(string[,] needsNumbersBoard, int boardSizeRow, int boardSizeColumn)
         {
             for (int i = 0; i < boardSizeRow; i++)
             {
@@ -88,7 +74,7 @@ namespace Minesweeper
             return needsNumbersBoard;
         }
 
-        public string[,] FindOpenSpace(string[,] needsNumbersBoard, int boardSizeRow, int boardSizeColumn, int i, int j)
+        private static string[,] FindOpenSpace(string[,] needsNumbersBoard, int boardSizeRow, int boardSizeColumn, int i, int j)
         {
             for (int x = -1; x <= 1; x++)
             {
