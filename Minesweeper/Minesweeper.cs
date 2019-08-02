@@ -6,14 +6,14 @@ namespace Minesweeper
     {
         public static string FinalOutput(string boardLayout)
         {
-            var finalOutput = "";
             StringLengthIsLongEnough(boardLayout);
             var dataFromBoardLayout = StringConversionThatIsRequired(boardLayout);
             var boardSizeRow = CalculationOfBoardSide(dataFromBoardLayout, 0);
             var boardSizeColumn = CalculationOfBoardSide(dataFromBoardLayout, 1);
             var needsNumbersBoard = FillTheCellsWithBoardLayout(dataFromBoardLayout, boardSizeRow, boardSizeColumn);
             var boardWithNumbers = FillTheCellsWithNumbers(needsNumbersBoard, boardSizeRow, boardSizeColumn);
-
+            
+            var finalOutput = "";
             foreach (var cells in boardWithNumbers)
             {
                 finalOutput += cells;
@@ -39,8 +39,7 @@ namespace Minesweeper
 
         public static int CalculationOfBoardSide(string boardLayout, int rowOrColumn)
         {
-            var boardSideLength = "";
-            boardSideLength = boardSideLength + boardLayout[rowOrColumn];
+            var boardSideLength = boardLayout[rowOrColumn].ToString();
             return int.Parse(boardSideLength);
         }
 
@@ -78,7 +77,7 @@ namespace Minesweeper
             return needsNumbersBoard;
         }
 
-        private static string[,] IncreaseNumberInCellIfMineAround(string[,] needsNumbersBoard, int boardSizeRow,
+        private static void IncreaseNumberInCellIfMineAround(string[,] needsNumbersBoard, int boardSizeRow,
             int boardSizeColumn, int currentRow, int currentColumn)
         {
             for (var mineRow = -1; mineRow <= 1; mineRow++)
@@ -97,7 +96,6 @@ namespace Minesweeper
                     }
                 }
             }
-            return needsNumbersBoard;
         }
     }
 }
