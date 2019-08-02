@@ -18,7 +18,6 @@ namespace Minesweeper
             {
                 finalOutput += cells;
             }
-
             return finalOutput;
         }
 
@@ -41,19 +40,18 @@ namespace Minesweeper
         {
             var boardSideLength = "";
             boardSideLength = boardSideLength + boardLayout[rowOrColumn];
-            return Int32.Parse(boardSideLength);
+            return int.Parse(boardSideLength);
         }
         
-        private static string[,] FillTheCellsWithBoardLayout(string inputOfBoardLayout, int boardSizeRow, int boardSizeColumn)
+        private static string[,] FillTheCellsWithBoardLayout(string dataFromBoardLayout, int boardSizeRow, int boardSizeColumn)
         {
             var boardTable = new string[boardSizeRow, boardSizeColumn];
             var count = 2;
-
-            for (int i = 0; i < boardSizeRow; i++)
+            for (var currentRow = 0; currentRow < boardSizeRow; currentRow++)
             {
-                for (int j = 0; j < boardSizeColumn; j++)
+                for (var currentColumn = 0; currentColumn < boardSizeColumn; currentColumn++)
                 {
-                    boardTable[i, j] = inputOfBoardLayout[count++].ToString();
+                    boardTable[currentRow, currentColumn] = dataFromBoardLayout[count++].ToString();
                 }
             }
             return boardTable;
@@ -61,42 +59,42 @@ namespace Minesweeper
 
         private static string[,] FillTheCellsWithNumbers(string[,] needsNumbersBoard, int boardSizeRow, int boardSizeColumn)
         {
-            for (int i = 0; i < boardSizeRow; i++)
+            for (var currentRow = 0; currentRow < boardSizeRow; currentRow++)
             {
-                for (int j = 0; j < boardSizeColumn; j++)
+                for (var currentColumn = 0; currentColumn < boardSizeColumn; currentColumn++)
                 {
-                    if (needsNumbersBoard[i, j] == "*")
+                    if (needsNumbersBoard[currentRow, currentColumn] == "*")
                     {
-                        FindOpenSpace(needsNumbersBoard, boardSizeRow, boardSizeColumn, i, j);
+                        IncreaseNumberInCellIfMineAround(needsNumbersBoard, boardSizeRow, boardSizeColumn, currentRow, currentColumn);
                     }
                 }
             }
             return needsNumbersBoard;
         }
 
-        private static string[,] FindOpenSpace(string[,] needsNumbersBoard, int boardSizeRow, int boardSizeColumn, int i, int j)
+        private static string[,] IncreaseNumberInCellIfMineAround(string[,] needsNumbersBoard, int boardSizeRow, int boardSizeColumn, int currentRow, int currentColumn)
         {
-            for (int x = -1; x <= 1; x++)
+            for (var minePointerRow = -1; minePointerRow <= 1; minePointerRow++)
             {
-                for (int y = -1; y <= 1; y++)
+                for (var minePointerColumn = -1; minePointerColumn <= 1; minePointerColumn++)
                 {
-                    if ((i + x >= 0 && j + y >= 0 && i + x < boardSizeRow && j + y < boardSizeColumn))
+                    if ((currentRow + minePointerRow >= 0 && currentColumn + minePointerColumn >= 0 && currentRow + minePointerRow < boardSizeRow && currentColumn + minePointerColumn < boardSizeColumn))
                     {
-                        if ((needsNumbersBoard[(i + x), (j + y)]) == "3")
+                        if ((needsNumbersBoard[(currentRow + minePointerRow), (currentColumn + minePointerColumn)]) == "3")
                         {
-                            needsNumbersBoard[(i + x), (j + y)] = "4";
+                            needsNumbersBoard[(currentRow + minePointerRow), (currentColumn + minePointerColumn)] = "4";
                         }
-                        if ((needsNumbersBoard[(i + x), (j + y)]) == "2")
+                        if ((needsNumbersBoard[(currentRow + minePointerRow), (currentColumn + minePointerColumn)]) == "2")
                         {
-                            needsNumbersBoard[(i + x), (j + y)] = "3";
+                            needsNumbersBoard[(currentRow + minePointerRow), (currentColumn + minePointerColumn)] = "3";
                         }
-                        if ((needsNumbersBoard[(i + x), (j + y)]) == "1")
+                        if ((needsNumbersBoard[(currentRow + minePointerRow), (currentColumn + minePointerColumn)]) == "1")
                         {
-                            needsNumbersBoard[(i + x), (j + y)] = "2";
+                            needsNumbersBoard[(currentRow + minePointerRow), (currentColumn + minePointerColumn)] = "2";
                         }
-                        if ((needsNumbersBoard[(i + x), (j + y)]) == "0")
+                        if ((needsNumbersBoard[(currentRow + minePointerRow), (currentColumn + minePointerColumn)]) == "0")
                         {
-                            needsNumbersBoard[(i + x), (j + y)] = "1";
+                            needsNumbersBoard[(currentRow + minePointerRow), (currentColumn + minePointerColumn)] = "1";
                         }
                     }
                 }
