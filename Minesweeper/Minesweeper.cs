@@ -18,6 +18,7 @@ namespace Minesweeper
             {
                 finalOutput += cells;
             }
+
             return finalOutput;
         }
 
@@ -28,7 +29,7 @@ namespace Minesweeper
                 throw new Exception($"Please enter a larger field size");
             }
         }
-        
+
         private static string StringConversionThatIsRequired(string boardLayout)
         {
             boardLayout = boardLayout.Replace("\n", "");
@@ -42,8 +43,9 @@ namespace Minesweeper
             boardSideLength = boardSideLength + boardLayout[rowOrColumn];
             return int.Parse(boardSideLength);
         }
-        
-        private static string[,] FillTheCellsWithBoardLayout(string dataFromBoardLayout, int boardSizeRow, int boardSizeColumn)
+
+        private static string[,] FillTheCellsWithBoardLayout(string dataFromBoardLayout, int boardSizeRow,
+            int boardSizeColumn)
         {
             var boardTable = new string[boardSizeRow, boardSizeColumn];
             var count = 2;
@@ -54,10 +56,12 @@ namespace Minesweeper
                     boardTable[currentRow, currentColumn] = dataFromBoardLayout[count++].ToString();
                 }
             }
+
             return boardTable;
         }
 
-        private static string[,] FillTheCellsWithNumbers(string[,] needsNumbersBoard, int boardSizeRow, int boardSizeColumn)
+        private static string[,] FillTheCellsWithNumbers(string[,] needsNumbersBoard, int boardSizeRow,
+            int boardSizeColumn)
         {
             for (var currentRow = 0; currentRow < boardSizeRow; currentRow++)
             {
@@ -65,36 +69,30 @@ namespace Minesweeper
                 {
                     if (needsNumbersBoard[currentRow, currentColumn] == "*")
                     {
-                        IncreaseNumberInCellIfMineAround(needsNumbersBoard, boardSizeRow, boardSizeColumn, currentRow, currentColumn);
+                        IncreaseNumberInCellIfMineAround(needsNumbersBoard, boardSizeRow, boardSizeColumn, currentRow,
+                            currentColumn);
                     }
                 }
             }
+
             return needsNumbersBoard;
         }
 
-        private static string[,] IncreaseNumberInCellIfMineAround(string[,] needsNumbersBoard, int boardSizeRow, int boardSizeColumn, int currentRow, int currentColumn)
+        private static string[,] IncreaseNumberInCellIfMineAround(string[,] needsNumbersBoard, int boardSizeRow,
+            int boardSizeColumn, int currentRow, int currentColumn)
         {
             for (var mineRow = -1; mineRow <= 1; mineRow++)
             {
                 for (var mineColumn = -1; mineColumn <= 1; mineColumn++)
                 {
-                    if ((currentRow + mineRow >= 0 && currentColumn + mineColumn >= 0 && currentRow + mineRow < boardSizeRow && currentColumn + mineColumn < boardSizeColumn))
+                    if ((currentRow + mineRow >= 0 && currentColumn + mineColumn >= 0 &&
+                         currentRow + mineRow < boardSizeRow && currentColumn + mineColumn < boardSizeColumn))
                     {
-                        if ((needsNumbersBoard[(currentRow + mineRow), (currentColumn + mineColumn)]) == "3")
+                        if (Int32.TryParse(needsNumbersBoard[(currentRow + mineRow), (currentColumn + mineColumn)],
+                            out int value))
                         {
-                            needsNumbersBoard[(currentRow + mineRow), (currentColumn + mineColumn)] = "4";
-                        }
-                        if ((needsNumbersBoard[(currentRow + mineRow), (currentColumn + mineColumn)]) == "2")
-                        {
-                            needsNumbersBoard[(currentRow + mineRow), (currentColumn + mineColumn)] = "3";
-                        }
-                        if ((needsNumbersBoard[(currentRow + mineRow), (currentColumn + mineColumn)]) == "1")
-                        {
-                            needsNumbersBoard[(currentRow + mineRow), (currentColumn + mineColumn)] = "2";
-                        }
-                        if ((needsNumbersBoard[(currentRow + mineRow), (currentColumn + mineColumn)]) == "0")
-                        {
-                            needsNumbersBoard[(currentRow + mineRow), (currentColumn + mineColumn)] = "1";
+                            value++;
+                            needsNumbersBoard[(currentRow + mineRow), (currentColumn + mineColumn)] = value.ToString();
                         }
                     }
                 }
