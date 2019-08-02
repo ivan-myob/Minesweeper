@@ -74,27 +74,27 @@ namespace Minesweeper
 
         private static string[,] IncreaseNumberInCellIfMineAround(string[,] needsNumbersBoard, int boardSizeRow, int boardSizeColumn, int currentRow, int currentColumn)
         {
-            for (var minePointerRow = -1; minePointerRow <= 1; minePointerRow++)
+            for (var mineRow = -1; mineRow <= 1; mineRow++)
             {
-                for (var minePointerColumn = -1; minePointerColumn <= 1; minePointerColumn++)
+                for (var mineColumn = -1; mineColumn <= 1; mineColumn++)
                 {
-                    if ((currentRow + minePointerRow >= 0 && currentColumn + minePointerColumn >= 0 && currentRow + minePointerRow < boardSizeRow && currentColumn + minePointerColumn < boardSizeColumn))
+                    if ((currentRow + mineRow >= 0 && currentColumn + mineColumn >= 0 && currentRow + mineRow < boardSizeRow && currentColumn + mineColumn < boardSizeColumn))
                     {
-                        if ((needsNumbersBoard[(currentRow + minePointerRow), (currentColumn + minePointerColumn)]) == "3")
+                        if ((needsNumbersBoard[(currentRow + mineRow), (currentColumn + mineColumn)]) == "3")
                         {
-                            needsNumbersBoard[(currentRow + minePointerRow), (currentColumn + minePointerColumn)] = "4";
+                            needsNumbersBoard[(currentRow + mineRow), (currentColumn + mineColumn)] = "4";
                         }
-                        if ((needsNumbersBoard[(currentRow + minePointerRow), (currentColumn + minePointerColumn)]) == "2")
+                        if ((needsNumbersBoard[(currentRow + mineRow), (currentColumn + mineColumn)]) == "2")
                         {
-                            needsNumbersBoard[(currentRow + minePointerRow), (currentColumn + minePointerColumn)] = "3";
+                            needsNumbersBoard[(currentRow + mineRow), (currentColumn + mineColumn)] = "3";
                         }
-                        if ((needsNumbersBoard[(currentRow + minePointerRow), (currentColumn + minePointerColumn)]) == "1")
+                        if ((needsNumbersBoard[(currentRow + mineRow), (currentColumn + mineColumn)]) == "1")
                         {
-                            needsNumbersBoard[(currentRow + minePointerRow), (currentColumn + minePointerColumn)] = "2";
+                            needsNumbersBoard[(currentRow + mineRow), (currentColumn + mineColumn)] = "2";
                         }
-                        if ((needsNumbersBoard[(currentRow + minePointerRow), (currentColumn + minePointerColumn)]) == "0")
+                        if ((needsNumbersBoard[(currentRow + mineRow), (currentColumn + mineColumn)]) == "0")
                         {
-                            needsNumbersBoard[(currentRow + minePointerRow), (currentColumn + minePointerColumn)] = "1";
+                            needsNumbersBoard[(currentRow + mineRow), (currentColumn + mineColumn)] = "1";
                         }
                     }
                 }
