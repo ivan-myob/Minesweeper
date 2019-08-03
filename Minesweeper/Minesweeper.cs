@@ -4,6 +4,24 @@ namespace Minesweeper
 {
     public class Minesweeper
     {
+
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Please enter dimensions");
+            var dimensions = Console.ReadLine();
+            Console.WriteLine("Please enter board according to dimensions (enter x to finish)");
+            var board = dimensions;
+            var currentLine = string.Empty;
+            while (currentLine != "x")
+            {
+                board += currentLine + Environment.NewLine; 
+                currentLine = Console.ReadLine();
+            }
+
+            var result = FinalOutput(board);
+            Console.Write(result);
+        }
+
         public static string FinalOutput(string boardLayout)
         {
             StringLengthIsLongEnough(boardLayout);
@@ -32,7 +50,7 @@ namespace Minesweeper
 
         private static string StringConversionThatIsRequired(string boardLayout)
         {
-            boardLayout = boardLayout.Replace("\n", "");
+            boardLayout = boardLayout.Replace(Environment.NewLine, "");
             boardLayout = boardLayout.Replace(".", "0");
             return boardLayout;
         }
